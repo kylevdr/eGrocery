@@ -1,0 +1,34 @@
+#products-wrapper {
+  height: 100%;
+}
+
+.sidebar-nav {
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #444;
+    height: 100%;
+    float: left;
+
+    li {
+      text-indent: 20px;
+      line-height: 40px;
+
+      a {
+        display: block;
+        text-decoration: none;
+        color: #ccc;
+
+        &:hover {
+          text-decoration: none;
+          color: #fff;
+          background: rgba(255,255,255,0.2);
+        }
+
+        &:active, &:focus {
+          text-decoration: none;
+        }
+      }
+    }
+}

@@ -13,7 +13,7 @@ var config = {
     loaders: [
 
       ////////// JSX, ES6 //////////
-      
+
       {
         test: /\.js?$/,
         exclude: /node_modules/,
@@ -37,7 +37,7 @@ var config = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('dist/main.css', {
+    new ExtractTextPlugin('./dist/styles.css', {
       allChunks: true
     }),
 
@@ -47,7 +47,7 @@ var config = {
     // new webpack.optimize.OccurenceOrderPlugin(),
     // new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
 
-  ]  
+  ]
 };
 
 module.exports = config;

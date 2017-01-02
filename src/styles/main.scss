@@ -1,3 +1,33 @@
-h1 {
-	color: teal;
+body {
+  min-height: 100vh;
+}
+
+nav {
+  ul {
+    li {
+      a {
+        .navlink-active {
+          color: purple;
+        }
+      }
+    }
+  }
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+#root {
+  height: 100%;
+}
+
+#container-wrapper {
+  height: 100%;
+}
+
+footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }
