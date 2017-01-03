@@ -16,28 +16,41 @@ nav ul li a .navlink-active {
 footer {
   width: 100%;
   position: absolute;
-  bottom: 0; }
-#products-wrapper {
-  height: 100%; }
+  bottom: 0;
+  height: 50px;
+  background: #F8F8F8;
+  border: 1px solid #e7e7e7; }
+.sidebar {
+  display: none; }
 
-.sidebar-nav {
-  width: 250px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  background: #444;
-  height: 100%;
-  float: left; }
-  .sidebar-nav li {
-    text-indent: 20px;
-    line-height: 40px; }
-    .sidebar-nav li a {
-      display: block;
-      text-decoration: none;
-      color: #ccc; }
-      .sidebar-nav li a:hover {
-        text-decoration: none;
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 52px;
+    bottom: 50px;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #eee;
+    border-right: 1px solid #ddd; } }
+
+.nav-sidebar {
+  margin-right: -21px;
+  margin-bottom: 20px;
+  margin-left: -20px; }
+  .nav-sidebar li a {
+    padding-right: 20px;
+    padding-left: 20px; }
+    .nav-sidebar li a .active {
+      color: #fff;
+      background: #428bca; }
+      .nav-sidebar li a .active:hover, .nav-sidebar li a .active:focus {
         color: #fff;
-        background: rgba(255, 255, 255, 0.2); }
-      .sidebar-nav li a:active, .sidebar-nav li a:focus {
-        text-decoration: none; }
+        background: #428bca; }
+
+.products-main .page-header {
+  margin-top: 0;
+  padding: 20px; }

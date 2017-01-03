@@ -76,6 +76,10 @@
 
 	var _Products2 = _interopRequireDefault(_Products);
 
+	var _Login = __webpack_require__(244);
+
+	var _Login2 = _interopRequireDefault(_Login);
+
 	var _Cart = __webpack_require__(239);
 
 	var _Cart2 = _interopRequireDefault(_Cart);
@@ -115,6 +119,7 @@
 						_reactRouter.Route,
 						{ path: '/', component: _Container2.default },
 						_react2.default.createElement(_reactRouter.IndexRoute, { component: _Products2.default }),
+						_react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default }),
 						_react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _Cart2.default }),
 						_react2.default.createElement(_reactRouter.Route, { path: '/about', component: _About2.default }),
 						_react2.default.createElement(_reactRouter.Route, { path: '*', component: _NotFound2.default })
@@ -26626,6 +26631,15 @@
 									null,
 									_react2.default.createElement(
 										_reactRouter.IndexLink,
+										{ activeClassName: 'navlink-active', to: '/login' },
+										'Login'
+									)
+								),
+								_react2.default.createElement(
+									'li',
+									null,
+									_react2.default.createElement(
+										_reactRouter.IndexLink,
 										{ activeClassName: 'navlink-active', to: '/cart' },
 										'Cart'
 									)
@@ -26637,6 +26651,24 @@
 										_reactRouter.IndexLink,
 										{ activeClassName: 'navlink-active', to: '/about' },
 										'About'
+									)
+								)
+							),
+							_react2.default.createElement(
+								'form',
+								{ className: 'navbar-form navbar-right' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'input-group' },
+									_react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Search' }),
+									_react2.default.createElement(
+										'div',
+										{ className: 'input-group-btn' },
+										_react2.default.createElement(
+											'button',
+											{ className: 'btn btn-default', type: 'submit' },
+											_react2.default.createElement('i', { className: 'glyphicon glyphicon-search' })
+										)
 									)
 								)
 							)
@@ -26690,7 +26722,6 @@
 				return _react2.default.createElement(
 					"footer",
 					null,
-					_react2.default.createElement("hr", null),
 					_react2.default.createElement(
 						"p",
 						{ className: "text-center" },
@@ -26747,15 +26778,20 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ id: 'products-wrapper' },
-					_react2.default.createElement(_Sidebar2.default, null),
+					{ className: 'container-fluid' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'container-fluid' },
+						{ className: 'row' },
+						_react2.default.createElement(_Sidebar2.default, null),
 						_react2.default.createElement(
-							'h1',
-							null,
-							'Products'
+							'div',
+							{ className: 'col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 products-main' },
+							_react2.default.createElement(
+								'h1',
+								{ className: 'page-header' },
+								'Products'
+							),
+							_react2.default.createElement('div', { className: 'row products-list' })
 						)
 					)
 				);
@@ -26807,16 +26843,16 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ className: 'col-sm-3 col-md-2 sidebar' },
 					_react2.default.createElement(
 						'ul',
-						{ className: 'sidebar-nav' },
+						{ className: 'nav nav-sidebar' },
 						_react2.default.createElement(
 							'li',
 							null,
 							_react2.default.createElement(
 								_reactRouter.Link,
-								{ to: '/' },
+								{ activeClassName: 'active', to: '/' },
 								'All Products'
 							)
 						),
@@ -26825,7 +26861,7 @@
 							null,
 							_react2.default.createElement(
 								_reactRouter.Link,
-								{ to: '/' },
+								{ activeClassName: 'active', to: '/' },
 								'Category 1'
 							)
 						),
@@ -26834,7 +26870,7 @@
 							null,
 							_react2.default.createElement(
 								_reactRouter.Link,
-								{ to: '/' },
+								{ activeClassName: 'active', to: '/' },
 								'Category 2'
 							)
 						),
@@ -26843,7 +26879,7 @@
 							null,
 							_react2.default.createElement(
 								_reactRouter.Link,
-								{ to: '/' },
+								{ activeClassName: 'active', to: '/' },
 								'Category 3'
 							)
 						)
@@ -26953,7 +26989,7 @@
 					_react2.default.createElement(
 						'p',
 						null,
-						'The premier in online grocery shopping'
+						'The premier in online grocery shopping. Get your groceries delivered straight to your doorstep!'
 					)
 				);
 			}
@@ -27033,6 +27069,64 @@
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Login = function (_React$Component) {
+		_inherits(Login, _React$Component);
+
+		function Login() {
+			_classCallCheck(this, Login);
+
+			return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).apply(this, arguments));
+		}
+
+		_createClass(Login, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h1',
+						null,
+						'Log In'
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						'Enter your username and password.'
+					)
+				);
+			}
+		}]);
+
+		return Login;
+	}(_react2.default.Component);
+
+	exports.default = Login;
 
 /***/ }
 /******/ ]);
