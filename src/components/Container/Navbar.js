@@ -21,10 +21,12 @@ export default class NavBar extends React.Component {
 									Shop <span className="caret"></span>
 								</IndexLink>
 								<ul className="dropdown-menu">
-									<li><Link to="/">All Products</Link></li>
-									<li><Link to="/">Category 1</Link></li>
-									<li><Link to="/">Category 2</Link></li>
-									<li><Link to="/">Category 3</Link></li>
+									<li><Link activeClassName="active" to="/">All Products</Link></li>
+									<li><Link activeClassName="active" to="/">Produce</Link></li>
+									<li><Link activeClassName="active" to="/">Meat</Link></li>
+									<li><Link activeClassName="active" to="/">Dairy</Link></li>
+									<li><Link activeClassName="active" to="/">Bakery</Link></li>
+									<li><Link activeClassName="active" to="/">Packaged</Link></li>
 								</ul>
 							</li>
 							<li><IndexLink activeClassName="navlink-active" to="/login">Login</IndexLink></li>

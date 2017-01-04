@@ -14,6 +14,10 @@ nav {
   }
 }
 
+h1 {
+  margin-top: 10px;
+}
+
 .navbar {
   margin-bottom: 0px;
 }
@@ -26,6 +30,10 @@ nav {
   height: 100%;
 }
 
+.content {
+  padding: 20px;
+}
+
 footer {
   width: 100%;
   position: absolute;
@@ -33,4 +41,8 @@ footer {
   height: 50px;
   background: #F8F8F8;
   border: 1px solid #e7e7e7;
+
+  p {
+    margin-top: 12px;
+  }
 }

@@ -4,6 +4,7 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 
 import Container from './components/Container/Container';
 import Products from './components/Products/Products';
+import ProductDetails from './components/Products/ProductDetails';
 import Login from './components/Login';
 import Cart from './components/Cart';
 import About from './components/About';
@@ -15,6 +16,7 @@ class App extends React.Component {
 			<Router history={hashHistory}>
 				<Route path='/' component={Container}>
 					<IndexRoute component={Products} />
+					<Route path='/products/:id' component={ProductDetails} />
 					<Route path='/login' component={Login} />
 					<Route path='/cart' component={Cart} />
 					<Route path='/about' component={About} />
