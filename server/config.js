@@ -6,4 +6,4 @@ module.exports = {
 	  password : 'e4JXYLmBpdpIiAn18HnktiVXjBd7VvY4',
 	  database : 'jatmfxds'
 	}
-}
+};

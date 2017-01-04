@@ -1,12 +1,25 @@
 const express = require('express');
 const pg = require('pg');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const passport = require('passport');
+
+const secrets = require('./server/secrets');
+const config = require('./server/config');
 
 const app = express();
 
+app.use(session({
+  secret: secrets.sessionSecret,
+  saveUninitialized: false,
+  resave: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 // DATABASE CONFIG
 
-const config = require('./server/config');
 let pool = new pg.Pool(config.config);
 
 // KNEX/BOOKSHELF
