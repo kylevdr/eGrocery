@@ -26869,7 +26869,7 @@
 							_react2.default.createElement(
 								_reactRouter.Link,
 								{ activeClassName: 'active', to: '/' },
-								'Produce'
+								'Fruits & Vegetables'
 							)
 						),
 						_react2.default.createElement(
@@ -26878,7 +26878,7 @@
 							_react2.default.createElement(
 								_reactRouter.Link,
 								{ activeClassName: 'active', to: '/' },
-								'Meat'
+								'Meat & Fish'
 							)
 						),
 						_react2.default.createElement(
@@ -26887,7 +26887,7 @@
 							_react2.default.createElement(
 								_reactRouter.Link,
 								{ activeClassName: 'active', to: '/' },
-								'Dairy'
+								'Dairy & Eggs'
 							)
 						),
 						_react2.default.createElement(
@@ -26905,7 +26905,7 @@
 							_react2.default.createElement(
 								_reactRouter.Link,
 								{ activeClassName: 'active', to: '/' },
-								'Packaged'
+								'Boxed & Canned Goods'
 							)
 						)
 					)

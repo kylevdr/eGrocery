@@ -1,8 +1,16 @@
+html {
+  height: 100%;
+}
+
 body {
-  min-height: 100vh;
+  min-height: 100%;
+  position: relative;
+  // space for footer
+  padding-bottom: 60px;
 }
 
 nav {
+  z-index: 2;
   ul {
     li {
       a {
@@ -39,6 +47,7 @@ h1 {
 }
 
 footer {
+  z-index: 2;
   width: 100%;
   position: absolute;
   bottom: 0;
