@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import Sidebar from './Sidebar';
+import ProductItem from './ProductItem';
 
 export default class Products extends React.Component {
 	constructor(props) {
@@ -22,11 +23,7 @@ export default class Products extends React.Component {
 
 	renderProducts() {
 		return this.state.products.map((product, index) => {
-			return <div key={index} className="col-xs-6 col-sm-3 product-item">
-				<h4>{product.name}</h4>
-				<img className="products-list-img" src={product.primary_img} alt={product.name} />
-				<p>${product.price}</p>
-			</div>;
+			return <ProductItem key={index} {...product} />;
 		});
 	}
 
@@ -39,15 +36,6 @@ export default class Products extends React.Component {
 						<h1 className="page-header">Products</h1>
 						<div className="row products-list">
 							{this.renderProducts()}
-							{/*
-								map products to:
-								<div className="col-xs-6 col-sm-3 product-item">
-									<img />
-									<h4>{this.props.name}</h4>
-									<p>{this.props.text}</p>
-									etc.
-								</div>
-							*/}
 						</div>
 					</div>
 				</div>

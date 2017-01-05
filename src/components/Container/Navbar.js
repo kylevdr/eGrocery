@@ -16,6 +16,7 @@ export default class NavBar extends React.Component {
 					</div>
 					<div className="collapse navbar-collapse" id="navbar-data">
 						<ul className="nav navbar-nav navbar-right">
+							{/*
 							<li className="dropdown">
 								<IndexLink activeClassName="navlink-active" className="dropdown-toggle" data-toggle="dropdown" to="/">
 									Shop <span className="caret"></span>
@@ -29,6 +30,8 @@ export default class NavBar extends React.Component {
 									<li><Link activeClassName="active" to="/">Packaged</Link></li>
 								</ul>
 							</li>
+							*/}
+							<li><IndexLink activeClassName="navlink-active" to="/">Shop</IndexLink></li>
 							<li><IndexLink activeClassName="navlink-active" to="/login">Login</IndexLink></li>
 							<li><IndexLink activeClassName="navlink-active" to="/cart">Cart</IndexLink></li>
 							<li><IndexLink activeClassName="navlink-active" to="/about">About</IndexLink></li>
