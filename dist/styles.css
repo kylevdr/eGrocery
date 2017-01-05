@@ -75,13 +75,11 @@ footer {
   margin-top: 0;
   padding: 20px; }
 
-.product-item {
-  cursor: pointer; }
-
 .products-list-img {
   width: 100px;
   height: 100px;
-  margin-bottom: 5px; }
+  margin-bottom: 5px;
+  cursor: pointer; }
 
 .product-details-main-img {
   width: 300px;
