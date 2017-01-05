@@ -60,6 +60,23 @@ app.get('/api/products', (req, res) => {
 	});
 });
 
+app.get('/api/products/:id', (req, res) => {
+	pool.connect(function(err, client, done) {
+		if(err) {
+			return console.error('error fetching client from pool', err);
+		}
+		client.query('SELECT * FROM public."Products" WHERE id = $1', [req.params.id], function(err, result) {
+			if(err) {
+				return console.error('error running query', err);
+			}
+
+			res.status(200).send(result.rows);
+
+			done();
+		});
+	});
+});
+
 app.listen(app.get('port'), () => {
   console.log('Listening on port', app.get('port'));
 });

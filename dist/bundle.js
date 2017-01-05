@@ -28735,7 +28735,7 @@
 			var _this = _possibleConstructorReturn(this, (ProductDetails.__proto__ || Object.getPrototypeOf(ProductDetails)).call(this, props));
 
 			_this.state = {
-				product: []
+				productInfo: []
 			};
 			return _this;
 		}
@@ -28745,9 +28745,9 @@
 			value: function componentDidMount() {
 				var _this2 = this;
 
-				_axios2.default.get('./api/products/' + this.props).then(function (response) {
+				_axios2.default.get('./api/products/' + this.props.params.id).then(function (response) {
 					_this2.setState({
-						product: response.data
+						productInfo: response.data[0]
 					});
 				});
 			}
@@ -28767,9 +28767,42 @@
 							_react2.default.createElement(
 								'h1',
 								{ className: 'page-header' },
-								'Products'
+								this.state.productInfo.name
 							),
-							_react2.default.createElement('div', { className: 'row' })
+							_react2.default.createElement(
+								'div',
+								{ className: 'row' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'col-sm-6' },
+									_react2.default.createElement('img', { className: 'product-details-main-img', src: this.state.productInfo.primary_img, alt: this.state.productInfo.name })
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'col-sm-6' },
+									_react2.default.createElement(
+										'p',
+										null,
+										'Product description: ',
+										this.state.productInfo.description
+									),
+									_react2.default.createElement(
+										'p',
+										null,
+										_react2.default.createElement(
+											'b',
+											null,
+											'$',
+											this.state.productInfo.price
+										)
+									),
+									_react2.default.createElement(
+										'button',
+										{ className: 'btn btn-primary' },
+										'Add To Cart'
+									)
+								)
+							)
 						)
 					)
 				);
@@ -28852,7 +28885,7 @@
 						_react2.default.createElement(
 							"p",
 							{ className: "center-horizontal", style: { maxWidth: 800 + 'px' } },
-							"This website is for demonstration purposes only. Connection information for the database can be found in the github repo and passwords are not encrypted. Please do not use the same username and password that you use for any other sites."
+							"This website is for demonstration purposes only. Connection information for the database can be found in the GitHub repo, and passwords are not encrypted. Please do not use the same username and password that you use on any other sites."
 						)
 					)
 				);
@@ -28874,7 +28907,7 @@
 /* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -28904,21 +28937,26 @@
 		}
 
 		_createClass(ProductItem, [{
-			key: "render",
+			key: 'handleClick',
+			value: function handleClick() {
+				window.location = '/#/products/' + this.props.id;
+			}
+		}, {
+			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
-					"div",
-					{ className: "col-xs-6 col-sm-3 product-item" },
+					'div',
+					{ className: 'col-xs-6 col-sm-3 product-item', onClick: this.handleClick.bind(this) },
 					_react2.default.createElement(
-						"h4",
+						'h4',
 						null,
 						this.props.name
 					),
-					_react2.default.createElement("img", { className: "products-list-img", src: this.props.primary_img, alt: this.props.name }),
+					_react2.default.createElement('img', { className: 'products-list-img', src: this.props.primary_img, alt: this.props.name }),
 					_react2.default.createElement(
-						"p",
+						'p',
 						null,
-						"$",
+						'$',
 						this.props.price
 					)
 				);

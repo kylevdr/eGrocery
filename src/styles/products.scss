@@ -52,6 +52,7 @@
 
 .product-item {
   // background: #adf442;
+  cursor: pointer;
 }
 
 .products-list-img {
@@ -60,6 +61,10 @@
   margin-bottom: 5px;
 }
 
+.product-details-main-img {
+  width: 300px;
+  height: 300px;
+}
 
 
 // .sidebar-nav {
