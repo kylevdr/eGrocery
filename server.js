@@ -50,43 +50,29 @@ app.listen(app.get('port'), () => {
 });
 
 app.get('/api/products', (req, res) => {
-	pool.connect(function(err, client, done) {
-		if(err) {
-			return console.error('error fetching client from pool', err);
-		}
-		client.query('SELECT * FROM public."Products"', function(err, result) {
-			if(err) {
-				return console.error('error running query', err);
-			}
-
-			res.status(200).send(result.rows);
-
-			done();
-		});
-	});
+	queries.getProducts(pool, req, res);
 });
 
 app.get('/api/products/:id', (req, res) => {
-	pool.connect(function(err, client, done) {
-		if(err) {
-			return console.error('error fetching client from pool', err);
-		}
-		client.query('SELECT * FROM public."Products" WHERE id = $1', [req.params.id], function(err, result) {
-			if(err) {
-				return console.error('error running query', err);
-			}
+	queries.getProductById(pool, req, res);
+});
 
-			res.status(200).send(result.rows);
+app.get('/checklogin', (req, res) => {
+	if(req.user) {
+		res.status(200).send(true);
+	} else {
+		res.status(200).send(false);
+	}
+});
 
-			done();
-		});
-	});
+app.get('/logout', (req, res) => {
+	req.logout();
+	res.status(200).send(true);
 });
 
 app.post('/register', (req, res) => {
-	console.log(req.body);
-	res.send({redirect: '/#/usercreated'});
-	//redirect to usercreated
+	queries.createUser(pool, req, res);
+	res.status(200).send({redirect: '/#/usercreated'});
 });
 
 passport.use(new LocalStrategy(
@@ -95,20 +81,8 @@ passport.use(new LocalStrategy(
   		if (!user) {
   			return done(null, false);
   		}
-  		console.log(user);
   		return done(null, user);
   	});
-  	
-    // User.findOne({ username: username }, function(err, user) {
-    //   if (err) { return done(err); }
-    //   if (!user) {
-    //     return done(null, false, { message: 'Incorrect username.' });
-    //   }
-    //   if (!user.validPassword(password)) {
-    //     return done(null, false, { message: 'Incorrect password.' });
-    //   }
-    //   return done(null, user);
-    // });
   }
 ));
 
@@ -120,39 +94,14 @@ passport.deserializeUser(function(obj, done) {
 	done(null, obj);
 });
 
-// app.post('/login',
-// 	passport.authenticate('local', 
-// 	{
-// 		// successRedirect: '/loginsuccess',
-// 		// failureRedirect: '/loginfailure'
-// 		successRedirect: '/#/?login=success',
-// 		failureRedirect: '/#/login?login=failed'
-// 	},
-// 	function(req, res) {
-// 		console.log('executing function');
-// 		console.log('Logged in as: ' + req.body);
-// 		res.redirect('/');
-// 	}
-// 	)
-// );
-
 app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
-    if (!user) { return res.send({redirect: '/loginfailure'}); }
+    if (!user) { return res.send({redirect: '/#/login?login=failed'}); }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-      return res.send({redirect: '/loginsuccess'});
+      return res.send({redirect: '/#/'});
     });
   })(req, res, next);
 });
-
-app.get('/loginsuccess', (req, res, next) => {
-	res.send('Login success.');
-});
-
-app.get('/loginfailure', (req, res, next) => {
-	res.send('Login failed.');
-});
-
 

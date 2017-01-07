@@ -6,6 +6,7 @@ import Container from './components/Container/Container';
 import Products from './components/Products/Products';
 import ProductDetails from './components/Products/ProductDetails';
 import Login from './components/Login';
+import Logout from './components/Logout';
 import Signup from './components/Signup';
 import Cart from './components/Cart';
 import About from './components/About';
@@ -20,6 +21,7 @@ class App extends React.Component {
 					<IndexRoute component={Products} />
 					<Route path='/products/:id' component={ProductDetails} />
 					<Route path='/login' component={Login} />
+					<Route path='/logout' component={Logout} />
 					<Route path='/signup' component={Signup} />
 					<Route path='/cart' component={Cart} />
 					<Route path='/about' component={About} />

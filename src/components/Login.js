@@ -30,6 +30,7 @@ export default class Login extends React.Component {
 			password: this.state.password
 		}).then((response) => {
 			window.location = response.data.redirect;
+			this.props.checkLogin();
 		});
 	}
 
@@ -60,7 +61,7 @@ export default class Login extends React.Component {
 						</div>
 						*/}
 						<button className="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-						<p>Don't have an account? <Link to="/signup">Sign up</Link>!</p>
+						<p>Don't have an account? <Link to="/signup">Sign up!</Link></p>
 					</form>
 				</div>
 			</div>

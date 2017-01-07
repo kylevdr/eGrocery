@@ -85,6 +85,10 @@
 
 	var _Login2 = _interopRequireDefault(_Login);
 
+	var _Logout = __webpack_require__(275);
+
+	var _Logout2 = _interopRequireDefault(_Logout);
+
 	var _Signup = __webpack_require__(271);
 
 	var _Signup2 = _interopRequireDefault(_Signup);
@@ -134,6 +138,7 @@
 						_react2.default.createElement(_reactRouter.IndexRoute, { component: _Products2.default }),
 						_react2.default.createElement(_reactRouter.Route, { path: '/products/:id', component: _ProductDetails2.default }),
 						_react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default }),
+						_react2.default.createElement(_reactRouter.Route, { path: '/logout', component: _Logout2.default }),
 						_react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _Signup2.default }),
 						_react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _Cart2.default }),
 						_react2.default.createElement(_reactRouter.Route, { path: '/about', component: _About2.default }),
@@ -26483,6 +26488,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _axios = __webpack_require__(245);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	var _Navbar = __webpack_require__(235);
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
@@ -26502,20 +26511,42 @@
 	var Container = function (_React$Component) {
 		_inherits(Container, _React$Component);
 
-		function Container() {
+		function Container(props) {
 			_classCallCheck(this, Container);
 
-			return _possibleConstructorReturn(this, (Container.__proto__ || Object.getPrototypeOf(Container)).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, (Container.__proto__ || Object.getPrototypeOf(Container)).call(this, props));
+
+			_this.state = {
+				isLoggedIn: false
+			};
+			return _this;
 		}
 
 		_createClass(Container, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				this.checkLogin();
+			}
+		}, {
+			key: 'checkLogin',
+			value: function checkLogin() {
+				var _this2 = this;
+
+				_axios2.default.get('./checklogin').then(function (response) {
+					_this2.setState({
+						isLoggedIn: response.data
+					});
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+				var children = _react2.default.cloneElement(this.props.children, { checkLogin: this.checkLogin.bind(this) });
 				return _react2.default.createElement(
 					'div',
 					{ id: 'container-wrapper' },
-					_react2.default.createElement(_Navbar2.default, null),
-					this.props.children,
+					_react2.default.createElement(_Navbar2.default, { isLoggedIn: this.state.isLoggedIn, checkLogin: this.checkLogin.bind(this) }),
+					children,
 					_react2.default.createElement(_Footer2.default, null)
 				);
 			}
@@ -26544,6 +26575,10 @@
 
 	var _reactRouter = __webpack_require__(179);
 
+	var _axios = __webpack_require__(245);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26555,13 +26590,119 @@
 	var NavBar = function (_React$Component) {
 		_inherits(NavBar, _React$Component);
 
-		function NavBar() {
+		function NavBar(props) {
 			_classCallCheck(this, NavBar);
 
-			return _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+
+			_this.state = {
+				searchText: ""
+			};
+			return _this;
 		}
 
 		_createClass(NavBar, [{
+			key: 'handleSearchChange',
+			value: function handleSearchChange(e) {
+				this.setState({
+					searchText: e.target.value
+				});
+			}
+		}, {
+			key: 'handleSubmit',
+			value: function handleSubmit(e) {
+				e.preventDefault();
+				window.location = "/#/?search=" + this.state.searchText;
+			}
+		}, {
+			key: 'handleLogout',
+			value: function handleLogout() {
+				var _this2 = this;
+
+				_axios2.default.get('/logout').then(function () {
+					_this2.props.checkLogin();
+					window.location = "/#/logout";
+				});
+			}
+		}, {
+			key: 'renderNavItems',
+			value: function renderNavItems() {
+				if (this.props.isLoggedIn) {
+					return _react2.default.createElement(
+						'ul',
+						{ className: 'nav navbar-nav navbar-right' },
+						_react2.default.createElement(
+							'li',
+							null,
+							_react2.default.createElement(
+								_reactRouter.IndexLink,
+								{ activeClassName: 'navlink-active', to: '/' },
+								'Shop'
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							_react2.default.createElement(
+								_reactRouter.IndexLink,
+								{ activeClassName: 'navlink-active', to: '/cart' },
+								'Cart'
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							_react2.default.createElement(
+								'a',
+								{ href: '#', onClick: this.handleLogout.bind(this) },
+								'Log Out'
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							_react2.default.createElement(
+								_reactRouter.IndexLink,
+								{ activeClassName: 'navlink-active', to: '/about' },
+								'About'
+							)
+						)
+					);
+				} else {
+					return _react2.default.createElement(
+						'ul',
+						{ className: 'nav navbar-nav navbar-right' },
+						_react2.default.createElement(
+							'li',
+							null,
+							_react2.default.createElement(
+								_reactRouter.IndexLink,
+								{ activeClassName: 'navlink-active', to: '/' },
+								'Shop'
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							_react2.default.createElement(
+								_reactRouter.IndexLink,
+								{ activeClassName: 'navlink-active', to: '/login' },
+								'Log In'
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							_react2.default.createElement(
+								_reactRouter.IndexLink,
+								{ activeClassName: 'navlink-active', to: '/about' },
+								'About'
+							)
+						)
+					);
+				}
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
@@ -26589,53 +26730,14 @@
 						_react2.default.createElement(
 							'div',
 							{ className: 'collapse navbar-collapse', id: 'navbar-data' },
-							_react2.default.createElement(
-								'ul',
-								{ className: 'nav navbar-nav navbar-right' },
-								_react2.default.createElement(
-									'li',
-									null,
-									_react2.default.createElement(
-										_reactRouter.IndexLink,
-										{ activeClassName: 'navlink-active', to: '/' },
-										'Shop'
-									)
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									_react2.default.createElement(
-										_reactRouter.IndexLink,
-										{ activeClassName: 'navlink-active', to: '/login' },
-										'Login'
-									)
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									_react2.default.createElement(
-										_reactRouter.IndexLink,
-										{ activeClassName: 'navlink-active', to: '/cart' },
-										'Cart'
-									)
-								),
-								_react2.default.createElement(
-									'li',
-									null,
-									_react2.default.createElement(
-										_reactRouter.IndexLink,
-										{ activeClassName: 'navlink-active', to: '/about' },
-										'About'
-									)
-								)
-							),
+							this.renderNavItems.bind(this)(),
 							_react2.default.createElement(
 								'form',
-								{ className: 'navbar-form navbar-right' },
+								{ className: 'navbar-form navbar-right', onSubmit: this.handleSubmit.bind(this) },
 								_react2.default.createElement(
 									'div',
 									{ className: 'input-group' },
-									_react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Search' }),
+									_react2.default.createElement('input', { type: 'text', className: 'form-control', onChange: this.handleSearchChange.bind(this), placeholder: 'Search' }),
 									_react2.default.createElement(
 										'div',
 										{ className: 'input-group-btn' },
@@ -26985,12 +27087,15 @@
 		}, {
 			key: 'handleSubmit',
 			value: function handleSubmit(e) {
+				var _this2 = this;
+
 				e.preventDefault();
 				_axios2.default.post('/login', {
 					username: this.state.username,
 					password: this.state.password
 				}).then(function (response) {
 					window.location = response.data.redirect;
+					_this2.props.checkLogin();
 				});
 			}
 		}, {
@@ -27041,9 +27146,8 @@
 								_react2.default.createElement(
 									_reactRouter.Link,
 									{ to: '/signup' },
-									'Sign up'
-								),
-								'!'
+									'Sign up!'
+								)
 							)
 						)
 					)
@@ -29142,6 +29246,72 @@
 	}(_react2.default.Component);
 
 	exports.default = UserCreated;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(179);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Logout = function (_React$Component) {
+		_inherits(Logout, _React$Component);
+
+		function Logout() {
+			_classCallCheck(this, Logout);
+
+			return _possibleConstructorReturn(this, (Logout.__proto__ || Object.getPrototypeOf(Logout)).apply(this, arguments));
+		}
+
+		_createClass(Logout, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'container-fluid content' },
+					_react2.default.createElement(
+						'h1',
+						null,
+						'Logout'
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						'You have successfully been logged out. ',
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ to: '/' },
+							'Click here'
+						),
+						' to return to the home page.'
+					)
+				);
+			}
+		}]);
+
+		return Logout;
+	}(_react2.default.Component);
+
+	exports.default = Logout;
 
 /***/ }
 /******/ ]);

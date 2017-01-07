@@ -20,4 +20,50 @@ module.exports = {
 			});
 		});
 	},
+	getProducts: (pool, req, res) => {
+		pool.connect(function(err, client, done) {
+			if(err) {
+				return console.error('error fetching client from pool', err);
+			}
+			client.query('SELECT * FROM public."Products"', function(err, result) {
+				if(err) {
+					return console.error('error running query', err);
+				}
+
+				res.status(200).send(result.rows);
+
+				done();
+			});
+		});
+	},
+	getProductById: (pool, req, res) => {
+		pool.connect(function(err, client, done) {
+			if(err) {
+				return console.error('error fetching client from pool', err);
+			}
+			client.query('SELECT * FROM public."Products" WHERE id = $1', [req.params.id], function(err, result) {
+				if(err) {
+					return console.error('error running query', err);
+				}
+
+				res.status(200).send(result.rows);
+
+				done();
+			});
+		});
+	},
+	createUser: (pool, req, res) => {
+		pool.connect(function(err, client, done) {
+			if(err) {
+				return console.error('error fetching client from pool', err);
+			}
+			client.query("INSERT INTO public.\"Users\" (username, password, user_type) VALUES ($1, $2, 'user')", [req.body.username, req.body.password], function(err, result) {
+				if(err) {
+					return console.error('error running query', err);
+				}
+
+				done();
+			});
+		});
+	}
 }
