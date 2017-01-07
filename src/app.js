@@ -9,6 +9,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Cart from './components/Cart';
 import About from './components/About';
+import UserCreated from './components/UserCreated';
 import NotFound from './components/NotFound';
 
 class App extends React.Component {
@@ -22,6 +23,7 @@ class App extends React.Component {
 					<Route path='/signup' component={Signup} />
 					<Route path='/cart' component={Cart} />
 					<Route path='/about' component={About} />
+					<Route path='/usercreated' component={UserCreated} />
 					<Route path='*' component={NotFound} />
 				</Route>
 			</Router>

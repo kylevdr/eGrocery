@@ -97,6 +97,10 @@
 
 	var _About2 = _interopRequireDefault(_About);
 
+	var _UserCreated = __webpack_require__(274);
+
+	var _UserCreated2 = _interopRequireDefault(_UserCreated);
+
 	var _NotFound = __webpack_require__(242);
 
 	var _NotFound2 = _interopRequireDefault(_NotFound);
@@ -133,6 +137,7 @@
 						_react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _Signup2.default }),
 						_react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _Cart2.default }),
 						_react2.default.createElement(_reactRouter.Route, { path: '/about', component: _About2.default }),
+						_react2.default.createElement(_reactRouter.Route, { path: '/usercreated', component: _UserCreated2.default }),
 						_react2.default.createElement(_reactRouter.Route, { path: '*', component: _NotFound2.default })
 					)
 				);
@@ -26936,6 +26941,10 @@
 
 	var _reactRouter = __webpack_require__(179);
 
+	var _axios = __webpack_require__(245);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26947,13 +26956,60 @@
 	var Login = function (_React$Component) {
 		_inherits(Login, _React$Component);
 
-		function Login() {
+		function Login(props) {
 			_classCallCheck(this, Login);
 
-			return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+
+			_this.state = {
+				username: "",
+				password: ""
+			};
+			return _this;
 		}
 
 		_createClass(Login, [{
+			key: 'handleUsernameChange',
+			value: function handleUsernameChange(e) {
+				this.setState({
+					username: e.target.value
+				});
+			}
+		}, {
+			key: 'handlePasswordChange',
+			value: function handlePasswordChange(e) {
+				this.setState({
+					password: e.target.value
+				});
+			}
+		}, {
+			key: 'handleSubmit',
+			value: function handleSubmit(e) {
+				e.preventDefault();
+				_axios2.default.post('/login', {
+					username: this.state.username,
+					password: this.state.password
+				}).then(function (response) {
+					window.location = response.data.redirect;
+				});
+			}
+		}, {
+			key: 'renderLoginFailure',
+			value: function renderLoginFailure() {
+				if (this.props.location.query.login === 'failed') {
+					return _react2.default.createElement(
+						'div',
+						{ className: 'alert alert-danger' },
+						_react2.default.createElement(
+							'strong',
+							null,
+							'Login Failed.'
+						),
+						' You may have entered an incorrect username or password.'
+					);
+				}
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
@@ -26964,24 +27020,15 @@
 						{ className: 'container-fluid' },
 						_react2.default.createElement(
 							'form',
-							{ className: 'form-signin' },
+							{ onSubmit: this.handleSubmit.bind(this), className: 'form-signin', action: '/login', method: 'post' },
 							_react2.default.createElement(
 								'h2',
 								{ className: 'form-signin-heading' },
 								'Log In'
 							),
-							_react2.default.createElement(
-								'label',
-								{ htmlFor: 'inputEmail', className: 'sr-only' },
-								'Email address'
-							),
-							_react2.default.createElement('input', { type: 'email', id: 'inputEmail', className: 'form-control', placeholder: 'Email address', required: true }),
-							_react2.default.createElement(
-								'label',
-								{ htmlFor: 'inputPassword', className: 'sr-only' },
-								'Password'
-							),
-							_react2.default.createElement('input', { type: 'password', id: 'inputPassword', className: 'form-control', placeholder: 'Password', required: true }),
+							this.renderLoginFailure(),
+							_react2.default.createElement('input', { type: 'text', onChange: this.handleUsernameChange.bind(this), name: 'username', className: 'form-control', placeholder: 'Username', required: true }),
+							_react2.default.createElement('input', { type: 'password', onChange: this.handlePasswordChange.bind(this), name: 'password', className: 'form-control', placeholder: 'Password', required: true }),
 							_react2.default.createElement(
 								'button',
 								{ className: 'btn btn-lg btn-primary btn-block', type: 'submit' },
@@ -26994,8 +27041,9 @@
 								_react2.default.createElement(
 									_reactRouter.Link,
 									{ to: '/signup' },
-									'Sign up!'
-								)
+									'Sign up'
+								),
+								'!'
 							)
 						)
 					)
@@ -28818,7 +28866,7 @@
 /* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -28829,6 +28877,10 @@
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _axios = __webpack_require__(245);
+
+	var _axios2 = _interopRequireDefault(_axios);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28841,51 +28893,103 @@
 	var Signup = function (_React$Component) {
 		_inherits(Signup, _React$Component);
 
-		function Signup() {
+		function Signup(props) {
 			_classCallCheck(this, Signup);
 
-			return _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this, props));
+
+			_this.state = {
+				username: "",
+				password: "",
+				confirmPassword: "",
+				passwordError: false
+			};
+			return _this;
 		}
 
 		_createClass(Signup, [{
-			key: "render",
+			key: 'handleUsernameChange',
+			value: function handleUsernameChange(e) {
+				this.setState({
+					username: e.target.value
+				});
+			}
+		}, {
+			key: 'handlePasswordChange',
+			value: function handlePasswordChange(e) {
+				this.setState({
+					password: e.target.value
+				});
+			}
+		}, {
+			key: 'handleConfirmPasswordChange',
+			value: function handleConfirmPasswordChange(e) {
+				this.setState({
+					confirmPassword: e.target.value
+				});
+			}
+		}, {
+			key: 'handleSubmit',
+			value: function handleSubmit(e) {
+				e.preventDefault();
+				if (this.state.password === this.state.confirmPassword) {
+					this.setState({
+						passwordError: false
+					});
+					_axios2.default.post('/register', {
+						username: this.state.username,
+						password: this.state.password
+					}).then(function (response) {
+						window.location = response.data.redirect;
+					});
+				} else {
+					this.setState({
+						passwordError: true
+					});
+				}
+			}
+		}, {
+			key: 'renderPasswordError',
+			value: function renderPasswordError() {
+				if (this.state.passwordError) {
+					return _react2.default.createElement(
+						'div',
+						{ className: 'alert alert-danger' },
+						'Passwords must match.'
+					);
+				}
+			}
+		}, {
+			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
-					"div",
-					{ className: "container-fluid content" },
+					'div',
+					{ className: 'container-fluid content' },
 					_react2.default.createElement(
-						"div",
-						{ className: "container-fluid" },
+						'div',
+						{ className: 'container-fluid' },
 						_react2.default.createElement(
-							"form",
-							{ className: "form-signin" },
+							'form',
+							{ className: 'form-signin', onSubmit: this.handleSubmit.bind(this) },
 							_react2.default.createElement(
-								"h2",
-								{ className: "form-signin-heading" },
-								"Sign Up"
+								'h2',
+								{ className: 'form-signin-heading' },
+								'Sign Up'
 							),
+							_react2.default.createElement('input', { type: 'text', name: 'username', onChange: this.handleUsernameChange.bind(this), className: 'form-control', placeholder: 'Username', required: true }),
+							_react2.default.createElement('input', { type: 'password', name: 'password', onChange: this.handlePasswordChange.bind(this), className: 'form-control', placeholder: 'Password', required: true }),
+							_react2.default.createElement('input', { type: 'password', name: 'confirmPassword', onChange: this.handleConfirmPasswordChange.bind(this), className: 'form-control', placeholder: 'Confirm Password', required: true }),
+							this.renderPasswordError(),
 							_react2.default.createElement(
-								"label",
-								{ htmlFor: "inputEmail", className: "sr-only" },
-								"Email address"
-							),
-							_react2.default.createElement("input", { type: "email", id: "inputEmail", className: "form-control", placeholder: "Email address", required: true }),
-							_react2.default.createElement(
-								"label",
-								{ htmlFor: "inputPassword", className: "sr-only" },
-								"Password"
-							),
-							_react2.default.createElement("input", { type: "password", id: "inputPassword", className: "form-control", placeholder: "Password", required: true }),
-							_react2.default.createElement(
-								"button",
-								{ className: "btn btn-lg btn-primary btn-block", type: "submit" },
-								"Sign Up"
+								'button',
+								{ className: 'btn btn-lg btn-primary btn-block', type: 'submit' },
+								'Sign Up'
 							)
 						),
 						_react2.default.createElement(
-							"p",
-							{ className: "center-horizontal", style: { maxWidth: 800 + 'px' } },
-							"This website is for demonstration purposes only. Connection information for the database can be found in the GitHub repo, and passwords are not encrypted. Please do not use the same username and password that you use on any other sites."
+							'p',
+							{ className: 'center-horizontal', style: { maxWidth: 800 + 'px' } },
+							'This website is for demonstration purposes only. Connection information for the database can be found in the GitHub repo, and passwords are not encrypted. Please do not use the same username and password that you use on any other sites.'
 						)
 					)
 				);
@@ -28973,6 +29077,71 @@
 	}(_react2.default.Component);
 
 	exports.default = ProductItem;
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(179);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var UserCreated = function (_React$Component) {
+		_inherits(UserCreated, _React$Component);
+
+		function UserCreated() {
+			_classCallCheck(this, UserCreated);
+
+			return _possibleConstructorReturn(this, (UserCreated.__proto__ || Object.getPrototypeOf(UserCreated)).apply(this, arguments));
+		}
+
+		_createClass(UserCreated, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'container-fluid content' },
+					_react2.default.createElement(
+						'h1',
+						null,
+						'User Created'
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ to: '/login' },
+							'Click here'
+						),
+						' to log in with your new account.'
+					)
+				);
+			}
+		}]);
+
+		return UserCreated;
+	}(_react2.default.Component);
+
+	exports.default = UserCreated;
 
 /***/ }
 /******/ ]);
