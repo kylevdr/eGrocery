@@ -11,9 +11,6 @@ var config = {
   },
   module: {
     loaders: [
-
-      ////////// JSX, ES6 //////////
-
       {
         test: /\.js?$/,
         exclude: /node_modules/,
@@ -22,14 +19,6 @@ var config = {
           presets: ['react', 'es2015']
         }
       },
-
-      ////////// UNCOMMENT TO INCLUDE STYLES IN BUNDLE.JS ////////// RUN npm i --save-dev style-loader //////////
-
-      // {
-      //   test: /\.scss$/,
-      //   loaders: ['style', 'css', 'sass']
-      // },
-
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract('css!sass')
@@ -41,7 +30,7 @@ var config = {
       allChunks: true
     }),
 
-    ////////// UNCOMMENT FOR PRODUCTION (also $ webpack -p) //////////
+    ////////// UNCOMMENT FOR PRODUCTION //////////
 
     // new webpack.optimize.DedupePlugin(),
     // new webpack.optimize.OccurenceOrderPlugin(),

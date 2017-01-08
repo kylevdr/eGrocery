@@ -53,13 +53,6 @@ export default class Login extends React.Component {
 						{this.renderLoginFailure()}
 						<input type="text" onChange={this.handleUsernameChange.bind(this)} name="username" className="form-control" placeholder="Username" required />
 						<input type="password" onChange={this.handlePasswordChange.bind(this)} name="password" className="form-control" placeholder="Password" required />
-						{/*}
-						<div className="checkbox">
-							<label>
-								<input type="checkbox" value="remember-me" /> Remember me
-							</label>
-						</div>
-						*/}
 						<button className="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
 						<p>Don't have an account? <Link to="/signup">Sign up!</Link></p>
 					</form>

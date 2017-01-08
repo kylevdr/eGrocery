@@ -14,14 +14,41 @@ export default class Products extends React.Component {
 	}
 
 	componentDidMount() {
-		axios.get('./api/products').then((response) => {
-			this.setState({
-				products: response.data
+		this.getProducts();
+	}
+
+	componentDidUpdate() {
+		this.getProducts();
+	}
+
+	getProducts() {
+		if (this.props.location.query.category) {
+			axios.get('./api/products/category?category=' + this.props.location.query.category).then((response) => {
+				this.setState({
+					products: response.data
+				});
 			});
-		});
+		} else if (this.props.location.query.search) {
+			axios.get('./api/products/search?q=' + this.props.location.query.search).then((response) => {
+				this.setState({
+					products: response.data
+				});
+			});
+		} else {
+			axios.get('./api/products').then((response) => {
+				this.setState({
+					products: response.data
+				});
+			});
+		}
 	}
 
 	renderProducts() {
+		if (this.state.products.length === 0) {
+			return (
+				<div className="col-xs-6 col-sm-3"><p><strong>No Products Found</strong></p></div>
+			);
+		}
 		return this.state.products.map((product, index) => {
 			return <ProductItem key={index} {...product} />;
 		});

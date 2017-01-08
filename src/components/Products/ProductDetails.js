@@ -13,7 +13,7 @@ export default class ProductDetails extends React.Component {
 	}
 
 	componentDidMount() {
-		axios.get('./api/products/' + this.props.params.id).then((response) => {
+		axios.get('./api/products/id/' + this.props.params.id).then((response) => {
 			this.setState({
 				productInfo: response.data[0]
 			});

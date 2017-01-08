@@ -52,6 +52,38 @@ module.exports = {
 			});
 		});
 	},
+	getProductsByCategory: (pool, req, res) => {
+		pool.connect(function(err, client, done) {
+			if(err) {
+				return console.error('error fetching client from pool', err);
+			}
+			client.query('SELECT * FROM public."Products" WHERE category = $1', [req.query.category], function(err, result) {
+				if(err) {
+					return console.error('error running query', err);
+				}
+
+				res.status(200).send(result.rows);
+
+				done();
+			});
+		});
+	},
+	getProductsBySearchTerm: (pool, req, res) => {
+		pool.connect(function(err, client, done) {
+			if(err) {
+				return console.error('error fetching client from pool', err);
+			}
+			client.query('SELECT * FROM public."Products" WHERE UPPER(name) LIKE $1 OR UPPER(description) LIKE $1 OR UPPER(category) LIKE $1', ['%' + req.query.q.toUpperCase() + '%'], function(err, result) {
+				if(err) {
+					return console.error('error running query', err);
+				}
+
+				res.status(200).send(result.rows);
+
+				done();
+			});
+		});
+	},
 	createUser: (pool, req, res) => {
 		pool.connect(function(err, client, done) {
 			if(err) {
