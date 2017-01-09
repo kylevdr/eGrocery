@@ -10,7 +10,8 @@ export default class ProductDetails extends React.Component {
 
 		this.state = {
 			productInfo: [],
-			showLoginPrompt: false
+			showLoginPrompt: false,
+			quantity: 1
 		};
 	}
 
@@ -25,7 +26,13 @@ export default class ProductDetails extends React.Component {
 	handleSubmit(e) {
 		e.preventDefault();
 		if (this.props.isLoggedIn) {
-			alert('Cart feature not yet implemented.');
+			axios.post('/addtocart', {
+				itemId: this.state.productInfo.id,
+				itemName: this.state.productInfo.name,
+				quantity: this.state.quantity
+			}).then((response) => {
+				window.location = response.data.redirect;
+			});
 		} else {
 			this.setState({
 				showLoginPrompt: true
@@ -36,9 +43,15 @@ export default class ProductDetails extends React.Component {
 	renderLoginPrompt() {
 		if (this.state.showLoginPrompt) {
 			return (
-				<div className="alert alert-danger"><Link to="/login" style={{color: "#9B3F3E"}}><strong>Log in</strong></Link> or <Link to="signup" style={{color: "#9B3F3E"}}><strong>sign up</strong></Link> to add this item to your cart.</div>
+				<div className="alert alert-danger"><Link to="/login" className="alert-link"><strong>Log in</strong></Link> or <Link to="/signup" className="alert-link"><strong>sign up</strong></Link> to add this item to your cart.</div>
 			);
 		}
+	}
+
+	handleChange(e) {
+		this.setState({
+			quantity: e.target.value
+		});
 	}
 
 	render() {
@@ -63,7 +76,7 @@ export default class ProductDetails extends React.Component {
 								<form onSubmit={this.handleSubmit.bind(this)}>
 									{this.renderLoginPrompt()}
 									<label>Quantity:
-										<select className="form-control" required>
+										<select className="form-control" onChange={this.handleChange.bind(this)} required>
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>

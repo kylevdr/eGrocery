@@ -8,10 +8,11 @@ import ProductDetails from './components/Products/ProductDetails';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Signup from './components/Signup';
-import Cart from './components/Cart';
+import Cart from './components/Cart/Cart';
 import About from './components/About';
 import UserCreated from './components/UserCreated';
 import NotFound from './components/NotFound';
+import Success from './components/Success';
 
 class App extends React.Component {
 	render() {
@@ -26,6 +27,7 @@ class App extends React.Component {
 					<Route path='/cart' component={Cart} />
 					<Route path='/about' component={About} />
 					<Route path='/usercreated' component={UserCreated} />
+					<Route path='/success' component={Success} />
 					<Route path='*' component={NotFound} />
 				</Route>
 			</Router>

@@ -70,6 +70,18 @@ app.get('/api/products/search', (req, res) => {
   queries.getProductsBySearchTerm(pool, req, res);
 });
 
+app.post('/addtocart', (req, res) => {
+  queries.addToCart(pool, req, res);
+});
+
+app.get('/getusercart', (req, res) => {
+  queries.getCartProductsByUser(pool, req, res);
+});
+
+app.delete('/deletecartitem/:id', (req, res) => {
+  queries.deleteCartItemById(pool, req, res);
+});
+
 app.get('/checklogin', (req, res) => {
 	if(req.user) {
 		res.status(200).send(true);

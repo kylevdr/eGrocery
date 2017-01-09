@@ -97,5 +97,53 @@ module.exports = {
 				done();
 			});
 		});
+	},
+	addToCart: (pool, req, res) => {
+		pool.connect(function(err, client, done) {
+			if(err) {
+				return console.error('error fetching client from pool', err);
+			}
+			client.query("INSERT INTO public.\"Cart\" (user_id, product_id, quantity) VALUES ($1, $2, $3)", [req.user.id, req.body.itemId, req.body.quantity], function(err, result) {
+				if(err) {
+					return console.error('error running query', err);
+				}
+
+				res.status(200).send({redirect: '/#/success?item=' + req.body.itemName + '&quantity=' + req.body.quantity});
+
+				done();
+			});
+		});
+	},
+	getCartProductsByUser: (pool, req, res) => {
+		pool.connect(function(err, client, done) {
+			if(err) {
+				return console.error('error fetching client from pool', err);
+			}
+			client.query('SELECT *, public."Cart".id AS cart_id FROM public."Cart" JOIN public."Products" ON product_id = public."Products".id WHERE user_id = $1', [req.user.id], function(err, result) {
+				if(err) {
+					return console.error('error running query', err);
+				}
+
+				res.status(200).send(result.rows);
+
+				done();
+			});
+		});
+	},
+	deleteCartItemById: (pool, req, res) => {
+		pool.connect(function(err, client, done) {
+			if(err) {
+				return console.error('error fetching client from pool', err);
+			}
+			client.query('DELETE FROM public."Cart" WHERE id = $1', [req.params.id], function(err, result) {
+				if(err) {
+					return console.error('error running query', err);
+				}
+
+				res.status(200).send('success');
+
+				done();
+			});
+		});
 	}
 }
