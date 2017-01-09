@@ -26541,7 +26541,7 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var children = _react2.default.cloneElement(this.props.children, { checkLogin: this.checkLogin.bind(this) });
+				var children = _react2.default.cloneElement(this.props.children, { checkLogin: this.checkLogin.bind(this), isLoggedIn: this.state.isLoggedIn });
 				return _react2.default.createElement(
 					'div',
 					{ id: 'container-wrapper' },
@@ -28442,21 +28442,75 @@
 				if (this.props.location.query.category) {
 					_axios2.default.get('./api/products/category?category=' + this.props.location.query.category).then(function (response) {
 						_this2.setState({
-							products: response.data
+							products: response.data.sort(function (a, b) {
+								if (a.name < b.name) {
+									return -1;
+								} else if (a.name > b.name) {
+									return 1;
+								} else {
+									return 0;
+								}
+							})
 						});
 					});
 				} else if (this.props.location.query.search) {
 					_axios2.default.get('./api/products/search?q=' + this.props.location.query.search).then(function (response) {
 						_this2.setState({
-							products: response.data
+							products: response.data.sort(function (a, b) {
+								if (a.name < b.name) {
+									return -1;
+								} else if (a.name > b.name) {
+									return 1;
+								} else {
+									return 0;
+								}
+							})
 						});
 					});
 				} else {
 					_axios2.default.get('./api/products').then(function (response) {
 						_this2.setState({
-							products: response.data
+							products: response.data.sort(function (a, b) {
+								if (a.name < b.name) {
+									return -1;
+								} else if (a.name > b.name) {
+									return 1;
+								} else {
+									return 0;
+								}
+							})
 						});
 					});
+				}
+			}
+		}, {
+			key: 'renderPageHeader',
+			value: function renderPageHeader() {
+				if (this.props.location.query.category) {
+					return _react2.default.createElement(
+						'h1',
+						{ className: 'page-header capitalize' },
+						this.props.location.query.category
+					);
+				} else if (this.props.location.query.search) {
+					return _react2.default.createElement(
+						'h1',
+						{ className: 'page-header' },
+						'Search Results'
+					);
+				} else if (this.props.location.query.view === "all") {
+					return _react2.default.createElement(
+						'h1',
+						{ className: 'page-header' },
+						'All Products'
+					);
+				} else {
+					// ADD CAROUSEL
+					return _react2.default.createElement(
+						'h1',
+						{ className: 'page-header' },
+						'Products'
+					);
 				}
 			}
 		}, {
@@ -28494,11 +28548,7 @@
 						_react2.default.createElement(
 							'div',
 							{ className: 'col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 products-main' },
-							_react2.default.createElement(
-								'h1',
-								{ className: 'page-header' },
-								'Products'
-							),
+							this.renderPageHeader(),
 							_react2.default.createElement(
 								'div',
 								{ className: 'row products-list' },
@@ -28564,7 +28614,7 @@
 							null,
 							_react2.default.createElement(
 								_reactRouter.Link,
-								{ activeClassName: 'active', to: '/' },
+								{ activeClassName: 'active', to: '/?view=all' },
 								'All Products'
 							)
 						),
@@ -28668,22 +28718,30 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'col-xs-6 col-sm-3 product-item' },
+					{ className: 'col-xs-6 col-sm-4 col-md-3' },
 					_react2.default.createElement(
-						'h4',
-						null,
+						'div',
+						{ className: 'product-item thumbnail' },
+						_react2.default.createElement('img', { onClick: this.handleClick.bind(this), className: 'products-list-img', src: this.props.primary_img, alt: this.props.name }),
 						_react2.default.createElement(
-							_reactRouter.Link,
-							{ to: '/products/' + this.props.id },
-							this.props.name
+							'div',
+							{ className: 'details-wrapper' },
+							_react2.default.createElement(
+								'h4',
+								{ className: 'pull-right' },
+								'$',
+								this.props.price
+							),
+							_react2.default.createElement(
+								'h4',
+								null,
+								_react2.default.createElement(
+									_reactRouter.Link,
+									{ to: '/products/' + this.props.id },
+									this.props.name
+								)
+							)
 						)
-					),
-					_react2.default.createElement('img', { onClick: this.handleClick.bind(this), className: 'products-list-img', src: this.props.primary_img, alt: this.props.name }),
-					_react2.default.createElement(
-						'p',
-						null,
-						'$',
-						this.props.price
 					)
 				);
 			}
@@ -28693,6 +28751,15 @@
 	}(_react2.default.Component);
 
 	exports.default = ProductItem;
+
+
+	{/*
+	 <div className="col-xs-6 col-sm-3 product-item">
+	 <h4><Link to={'/products/' + this.props.id}>{this.props.name}</Link></h4>
+	 <img onClick={this.handleClick.bind(this)} className="products-list-img" src={this.props.primary_img} alt={this.props.name} />
+	 <p>${this.props.price}</p>
+	 </div>
+	 */}
 
 /***/ },
 /* 266 */
@@ -28713,6 +28780,8 @@
 	var _axios = __webpack_require__(235);
 
 	var _axios2 = _interopRequireDefault(_axios);
+
+	var _reactRouter = __webpack_require__(179);
 
 	var _Sidebar = __webpack_require__(264);
 
@@ -28735,7 +28804,8 @@
 			var _this = _possibleConstructorReturn(this, (ProductDetails.__proto__ || Object.getPrototypeOf(ProductDetails)).call(this, props));
 
 			_this.state = {
-				productInfo: []
+				productInfo: [],
+				showLoginPrompt: false
 			};
 			return _this;
 		}
@@ -28750,6 +28820,48 @@
 						productInfo: response.data[0]
 					});
 				});
+			}
+		}, {
+			key: 'handleSubmit',
+			value: function handleSubmit(e) {
+				e.preventDefault();
+				if (this.props.isLoggedIn) {
+					alert('Cart feature not yet implemented.');
+				} else {
+					this.setState({
+						showLoginPrompt: true
+					});
+				}
+			}
+		}, {
+			key: 'renderLoginPrompt',
+			value: function renderLoginPrompt() {
+				if (this.state.showLoginPrompt) {
+					return _react2.default.createElement(
+						'div',
+						{ className: 'alert alert-danger' },
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ to: '/login', style: { color: "#9B3F3E" } },
+							_react2.default.createElement(
+								'strong',
+								null,
+								'Log in'
+							)
+						),
+						' or ',
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ to: 'signup', style: { color: "#9B3F3E" } },
+							_react2.default.createElement(
+								'strong',
+								null,
+								'sign up'
+							)
+						),
+						' to add this item to your cart.'
+					);
+				}
 			}
 		}, {
 			key: 'render',
@@ -28775,31 +28887,86 @@
 								_react2.default.createElement(
 									'div',
 									{ className: 'col-sm-6' },
-									_react2.default.createElement('img', { className: 'product-details-main-img', src: this.state.productInfo.primary_img, alt: this.state.productInfo.name })
+									_react2.default.createElement('img', { className: 'img-responsive', src: this.state.productInfo.primary_img, alt: this.state.productInfo.name })
 								),
 								_react2.default.createElement(
 									'div',
 									{ className: 'col-sm-6' },
 									_react2.default.createElement(
+										'h3',
+										null,
+										'Description'
+									),
+									_react2.default.createElement(
 										'p',
 										null,
-										'Product description: ',
 										this.state.productInfo.description
 									),
 									_react2.default.createElement(
-										'p',
+										'h3',
 										null,
-										_react2.default.createElement(
-											'b',
-											null,
-											'$',
-											this.state.productInfo.price
-										)
+										'Category'
 									),
 									_react2.default.createElement(
-										'button',
-										{ className: 'btn btn-primary' },
-										'Add To Cart'
+										'p',
+										{ className: 'capitalize' },
+										this.state.productInfo.category
+									),
+									_react2.default.createElement(
+										'h3',
+										null,
+										'Price'
+									),
+									_react2.default.createElement(
+										'p',
+										null,
+										'$',
+										this.state.productInfo.price
+									),
+									_react2.default.createElement('br', null),
+									_react2.default.createElement(
+										'form',
+										{ onSubmit: this.handleSubmit.bind(this) },
+										this.renderLoginPrompt(),
+										_react2.default.createElement(
+											'label',
+											null,
+											'Quantity:',
+											_react2.default.createElement(
+												'select',
+												{ className: 'form-control', required: true },
+												_react2.default.createElement(
+													'option',
+													{ value: '1' },
+													'1'
+												),
+												_react2.default.createElement(
+													'option',
+													{ value: '2' },
+													'2'
+												),
+												_react2.default.createElement(
+													'option',
+													{ value: '3' },
+													'3'
+												),
+												_react2.default.createElement(
+													'option',
+													{ value: '4' },
+													'4'
+												),
+												_react2.default.createElement(
+													'option',
+													{ value: '5' },
+													'5'
+												)
+											)
+										),
+										_react2.default.createElement(
+											'button',
+											{ className: 'btn btn-primary', type: 'submit' },
+											'Add To Cart'
+										)
 									)
 								)
 							)

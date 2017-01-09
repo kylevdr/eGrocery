@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router';
 
 import Sidebar from './Sidebar';
 
@@ -8,7 +9,8 @@ export default class ProductDetails extends React.Component {
 		super(props);
 
 		this.state = {
-			productInfo: []
+			productInfo: [],
+			showLoginPrompt: false
 		};
 	}
 
@@ -20,6 +22,25 @@ export default class ProductDetails extends React.Component {
 		});
 	}
 
+	handleSubmit(e) {
+		e.preventDefault();
+		if (this.props.isLoggedIn) {
+			alert('Cart feature not yet implemented.');
+		} else {
+			this.setState({
+				showLoginPrompt: true
+			});
+		}
+	}
+
+	renderLoginPrompt() {
+		if (this.state.showLoginPrompt) {
+			return (
+				<div className="alert alert-danger"><Link to="/login" style={{color: "#9B3F3E"}}><strong>Log in</strong></Link> or <Link to="signup" style={{color: "#9B3F3E"}}><strong>sign up</strong></Link> to add this item to your cart.</div>
+			);
+		}
+	}
+
 	render() {
 		return (
 			<div className="container-fluid">
@@ -28,15 +49,30 @@ export default class ProductDetails extends React.Component {
 					<div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 products-main">
 						<h1 className="page-header">{this.state.productInfo.name}</h1>
 						<div className="row">
-							{/* TODO: OPTIMIZE COLUMN SIZES */}
 							<div className="col-sm-6">
-								<img className="product-details-main-img" src={this.state.productInfo.primary_img} alt={this.state.productInfo.name} />
+								<img className="img-responsive" src={this.state.productInfo.primary_img} alt={this.state.productInfo.name} />
 							</div>
 							<div className="col-sm-6">
-								<p>Product description: {this.state.productInfo.description}</p>
-								<p><b>${this.state.productInfo.price}</b></p>
-								{/* TODO: IMPLEMENT ADD TO CART */}
-								<button className="btn btn-primary">Add To Cart</button>
+								<h3>Description</h3>
+								<p>{this.state.productInfo.description}</p>
+								<h3>Category</h3>
+								<p className="capitalize">{this.state.productInfo.category}</p>
+								<h3>Price</h3>
+								<p>${this.state.productInfo.price}</p>
+								<br />
+								<form onSubmit={this.handleSubmit.bind(this)}>
+									{this.renderLoginPrompt()}
+									<label>Quantity:
+										<select className="form-control" required>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+										</select>
+									</label>
+									<button className="btn btn-primary" type="submit">Add To Cart</button>
+								</form>
 							</div>
 						</div>
 					</div>

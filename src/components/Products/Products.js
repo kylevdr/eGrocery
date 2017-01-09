@@ -25,21 +25,66 @@ export default class Products extends React.Component {
 		if (this.props.location.query.category) {
 			axios.get('./api/products/category?category=' + this.props.location.query.category).then((response) => {
 				this.setState({
-					products: response.data
+					products: response.data.sort((a, b) => {
+						if (a.name < b.name) {
+							return -1;
+						} else if (a.name > b.name) {
+							return 1;
+						} else {
+							return 0;
+						}
+					})
 				});
 			});
 		} else if (this.props.location.query.search) {
 			axios.get('./api/products/search?q=' + this.props.location.query.search).then((response) => {
 				this.setState({
-					products: response.data
+					products: response.data.sort((a, b) => {
+						if (a.name < b.name) {
+							return -1;
+						} else if (a.name > b.name) {
+							return 1;
+						} else {
+							return 0;
+						}
+					})
 				});
 			});
 		} else {
 			axios.get('./api/products').then((response) => {
 				this.setState({
-					products: response.data
+					products: response.data.sort((a, b) => {
+						if (a.name < b.name) {
+							return -1;
+						} else if (a.name > b.name) {
+							return 1;
+						} else {
+							return 0;
+						}
+					})
 				});
 			});
+		}
+	}
+
+	renderPageHeader() {
+		if (this.props.location.query.category) {
+			return (
+				<h1 className="page-header capitalize">{this.props.location.query.category}</h1>
+			);
+		} else if (this.props.location.query.search) {
+			return (
+				<h1 className="page-header">Search Results</h1>
+			);
+		} else if (this.props.location.query.view === "all") {
+			return (
+				<h1 className="page-header">All Products</h1>
+			);
+		} else {
+			// ADD CAROUSEL
+			return (
+				<h1 className="page-header">Products</h1>
+			);
 		}
 	}
 
@@ -60,7 +105,7 @@ export default class Products extends React.Component {
 				<div className="row">
 					<Sidebar />
 					<div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 products-main">
-						<h1 className="page-header">Products</h1>
+						{this.renderPageHeader()}
 						<div className="row products-list">
 							{this.renderProducts()}
 						</div>

@@ -25,7 +25,7 @@ export default class Container extends React.Component {
 	}
 
 	render() {
-		let children = React.cloneElement(this.props.children, {checkLogin: this.checkLogin.bind(this)});
+		let children = React.cloneElement(this.props.children, {checkLogin: this.checkLogin.bind(this), isLoggedIn: this.state.isLoggedIn});
 		return (
 			<div id="container-wrapper">
 				<Navbar isLoggedIn={this.state.isLoggedIn} checkLogin={this.checkLogin.bind(this)} />
