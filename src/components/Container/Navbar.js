@@ -73,6 +73,7 @@ export default class NavBar extends React.Component {
 					*/}
 					<li><IndexLink activeClassName="navlink-active" to="/">Shop</IndexLink></li>
 					<li><IndexLink activeClassName="navlink-active" to="/login">Log In</IndexLink></li>
+					<li><IndexLink activeClassName="navlink-active" to="/signup">Sign Up</IndexLink></li>
 					<li><IndexLink activeClassName="navlink-active" to="/about">About</IndexLink></li>
 				</ul>
 			);
@@ -89,7 +90,7 @@ export default class NavBar extends React.Component {
 							<span className="icon-bar" />
 							<span className="icon-bar" />
 						</button>
-						<IndexLink className="navbar-brand" to="/">eGrocery</IndexLink>
+						<IndexLink className="navbar-brand" to="/"><i className="fa fa-shopping-cart"></i> eGrocery</IndexLink>
 					</div>
 					<div className="collapse navbar-collapse" id="navbar-data">
 						{this.renderNavItems.bind(this)()}

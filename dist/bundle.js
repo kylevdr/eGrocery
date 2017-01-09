@@ -28189,6 +28189,15 @@
 							null,
 							_react2.default.createElement(
 								_reactRouter.IndexLink,
+								{ activeClassName: 'navlink-active', to: '/signup' },
+								'Sign Up'
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							_react2.default.createElement(
+								_reactRouter.IndexLink,
 								{ activeClassName: 'navlink-active', to: '/about' },
 								'About'
 							)
@@ -28218,7 +28227,8 @@
 							_react2.default.createElement(
 								_reactRouter.IndexLink,
 								{ className: 'navbar-brand', to: '/' },
-								'eGrocery'
+								_react2.default.createElement('i', { className: 'fa fa-shopping-cart' }),
+								' eGrocery'
 							)
 						),
 						_react2.default.createElement(
@@ -28494,26 +28504,26 @@
 				if (this.props.location.query.category) {
 					return _react2.default.createElement(
 						'h1',
-						{ className: 'page-header capitalize' },
+						{ className: 'capitalize' },
 						this.props.location.query.category
 					);
 				} else if (this.props.location.query.search) {
 					return _react2.default.createElement(
 						'h1',
-						{ className: 'page-header' },
+						null,
 						'Search Results'
 					);
 				} else if (this.props.location.query.view === "all") {
 					return _react2.default.createElement(
 						'h1',
-						{ className: 'page-header' },
+						null,
 						'All Products'
 					);
 				} else {
 					// ADD CAROUSEL
 					return _react2.default.createElement(
 						'h1',
-						{ className: 'page-header' },
+						null,
 						'Products'
 					);
 				}
@@ -28545,7 +28555,7 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'container-fluid' },
+					{ className: 'container-fluid products-main' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'row' },
@@ -28619,7 +28629,7 @@
 							null,
 							_react2.default.createElement(
 								_reactRouter.Link,
-								{ activeClassName: 'active', to: '/?view=all' },
+								{ activeClassName: 'active', to: '/' },
 								'All Products'
 							)
 						),
@@ -28723,7 +28733,7 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'col-xs-12 col-sm-4 col-md-3' },
+					{ className: 'col-xs-12 col-sm-6 col-md-4 col-lg-3' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'product-item thumbnail' },
@@ -28897,7 +28907,7 @@
 							{ className: 'col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 products-main' },
 							_react2.default.createElement(
 								'h1',
-								{ className: 'page-header' },
+								{ className: 'page-header', style: { marginTop: 10 } },
 								this.state.productInfo.name
 							),
 							_react2.default.createElement(
@@ -29385,31 +29395,30 @@
 					'div',
 					{ className: 'container-fluid content' },
 					_react2.default.createElement(
-						'h1',
-						null,
-						'eGrocery'
-					),
-					_react2.default.createElement(
-						'p',
-						null,
-						'The premier in online grocery shopping. Get your groceries delivered straight to your doorstep!'
-					),
-					_react2.default.createElement(
-						'p',
-						null,
-						'Created by Kyle VanDeRiet. ',
-						_react2.default.createElement(_SocialLinks2.default, null)
-					),
-					_react2.default.createElement(
-						'p',
-						null,
-						'This website is for demonstration purposes only. See the source code on ',
+						'div',
+						{ className: 'text-center' },
 						_react2.default.createElement(
-							'a',
-							{ target: '_blank', href: 'https://github.com/kylevdr/eGrocery' },
-							'GitHub'
+							'h1',
+							null,
+							'eGrocery'
 						),
-						'.'
+						_react2.default.createElement(
+							'p',
+							null,
+							'This website is for demonstration purposes only. See the source code on ',
+							_react2.default.createElement(
+								'a',
+								{ target: '_blank', href: 'https://github.com/kylevdr/eGrocery' },
+								'GitHub'
+							),
+							'.'
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							'Created by Kyle VanDeRiet. ',
+							_react2.default.createElement(_SocialLinks2.default, null)
+						)
 					)
 				);
 			}

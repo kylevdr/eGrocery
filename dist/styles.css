@@ -8,11 +8,32 @@ body {
 
 nav {
   z-index: 2; }
-  nav ul li a .navlink-active {
-    color: purple; }
+  nav a {
+    font-size: 16px; }
+
+.navbar-default {
+  background-color: #fcfcfc; }
+  .navbar-default a:hover {
+    color: #9CD323 !important; }
+
+.navbar-inverse {
+  background-color: #444;
+  font-weight: lighter; }
+  .navbar-inverse a {
+    color: white !important; }
+    .navbar-inverse a:hover {
+      color: #link-color !important; }
+
+.navbar {
+  border-radius: 0; }
 
 h1 {
   margin-top: 10px; }
+
+a {
+  color: #9CD323; }
+  a:focus, a:hover {
+    color: #4b6611; }
 
 .capitalize {
   text-transform: capitalize; }
@@ -43,10 +64,13 @@ footer {
   position: absolute;
   bottom: 0;
   height: 50px;
-  background: #F8F8F8;
-  border: 1px solid #e7e7e7; }
+  background: #fcfcfc;
+  border: 1px solid #ddd; }
   footer p {
     margin-top: 12px; }
+
+body, a, p, h1, h2, h3, h4 {
+  font-family: 'Roboto', sans-serif !important; }
 .sidebar {
   display: none; }
 
@@ -59,32 +83,39 @@ footer {
     z-index: 1;
     display: block;
     padding: 20px;
-    background-color: #eee;
+    background-color: #fcfcfc;
     border-right: 1px solid #ddd; } }
 
 .nav-sidebar {
-  margin-top: 45px;
+  margin-top: 31px;
   margin-right: -21px;
   margin-bottom: 20px;
   margin-left: -20px; }
-  .nav-sidebar li a {
-    padding-right: 20px;
-    padding-left: 20px; }
-    .nav-sidebar li a:hover {
-      background: #ccc; }
-    .nav-sidebar li a .active {
-      color: #fff;
-      background: #428bca; }
-      .nav-sidebar li a .active:hover, .nav-sidebar li a .active:focus {
-        color: #fff;
-        background: #428bca; }
+  .nav-sidebar li {
+    border-bottom: 1px solid #ddd; }
+    .nav-sidebar li a {
+      padding-right: 20px;
+      padding-left: 20px;
+      font-size: 18px;
+      color: #5e5e5e;
+      transition: .2s;
+      -webkit-transition: .2s; }
+      .nav-sidebar li a:focus, .nav-sidebar li a:hover {
+        color: #2b2b2b;
+        border-right: 1px solid #ddd; }
+      .nav-sidebar li a:focus {
+        background: #fcfcfc; }
+      .nav-sidebar li a:hover {
+        background: #777;
+        color: white; }
 
-.products-main .page-header {
-  margin-top: 0;
-  padding: 20px; }
+.products-main {
+  padding: 0 20px 0 20px; }
+  .products-main .page-header {
+    margin-top: 0; }
 
 .product-item {
-  height: 175px;
+  height: 200px;
   position: relative; }
   .product-item .details-wrapper {
     width: 100%;
@@ -92,11 +123,13 @@ footer {
     position: absolute;
     bottom: 0; }
     .product-item .details-wrapper h4 {
+      font-size: 20px;
       margin: 0; }
+    .product-item .details-wrapper a {
+      font-size: 20px; }
 
 .products-list-img {
-  max-width: 100px;
-  max-height: 100px;
+  max-height: 130px;
   margin-bottom: 5px;
   cursor: pointer; }
 .form-signin {

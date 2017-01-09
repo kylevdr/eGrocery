@@ -1,3 +1,5 @@
+@import 'palette';
+
 html {
   height: 100%;
 }
@@ -11,19 +13,48 @@ body {
 
 nav {
   z-index: 2;
-  ul {
-    li {
-      a {
-        .navlink-active {
-          color: purple;
-        }
-      }
+
+  a {
+    font-size: 16px;
+  }
+}
+
+.navbar-default {
+  background-color: #fcfcfc;
+  // background-color: #9CD323;
+  a {
+    &:hover {
+      color: $link-color !important;
     }
   }
 }
 
+.navbar-inverse {
+  background-color: #444;
+  font-weight: lighter;
+  a {
+    color: white !important;
+
+    &:hover {
+      color: #link-color !important;
+    }
+  }
+}
+
+.navbar {
+  border-radius: 0;
+}
+
 h1 {
   margin-top: 10px;
+}
+
+a {
+  color: $link-color;
+
+  &:focus, &:hover {
+    color: darken($link-color, 25%);
+  }
 }
 
 .capitalize {
@@ -62,10 +93,90 @@ footer {
   position: absolute;
   bottom: 0;
   height: 50px;
-  background: #F8F8F8;
-  border: 1px solid #e7e7e7;
+  background: #fcfcfc;
+  border: 1px solid #ddd;
 
   p {
     margin-top: 12px;
   }
 }
+
+////////// UNCOMMENT TO CHANGE FONT TO ROBOTO //////////
+
+body, a, p, h1, h2, h3, h4 {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+////////// UNCOMMENT TO ADD BORDERS TO .FORM-CONTROL IN PAPER THEME //////////
+
+// textarea,
+// textarea.form-control,
+// input.form-control,
+// input[type=text],
+// input[type=password],
+// input[type=email],
+// input[type=number],
+// [type=text].form-control,
+// [type=password].form-control,
+// [type=email].form-control,
+// [type=tel].form-control,
+// [contenteditable].form-control {
+//   padding: 5px;
+//   border: 1px solid #ddd;
+//   border-radius: 3px;
+//   -webkit-appearance: none;
+//   font-size: 16px;
+
+//   &:focus {
+//   }
+
+//   &[disabled],
+//   &[readonly] {
+//     border-bottom: 1px dotted #ddd;
+//   }
+
+//   &.input {
+//     &-sm {
+//     }
+
+//     &-lg {
+//     }
+//   }
+// }
+
+// select,
+// select.form-control {
+//   border: 1px solid #ddd;
+//   border-radius: 3px;
+//   -webkit-appearance: none;
+//   -moz-appearance: none;
+//   appearance: none;
+//   padding-left: 0;
+//   padding-right: 0\9; // remove padding for < ie9 since default arrow can't be removed
+//   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAJ1BMVEVmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmaP/QSjAAAADHRSTlMAAgMJC0uWpKa6wMxMdjkoAAAANUlEQVR4AeXJyQEAERAAsNl7Hf3X6xt0QL6JpZWq30pdvdadme+0PMdzvHm8YThHcT1H7K0BtOMDniZhWOgAAAAASUVORK5CYII=);
+//   background-size: 13px;
+//   background-repeat: no-repeat;
+//   background-position: right center;
+//   font-size: 16px;
+//   line-height: 1.5;
+
+//   &::-ms-expand {
+//     display: none;
+//   }
+
+//   &.input {
+//     &-sm {
+//     }
+
+//     &-lg {
+//     }
+//   }
+
+//   &:focus {
+//     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAJ1BMVEUhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISF8S9ewAAAADHRSTlMAAgMJC0uWpKa6wMxMdjkoAAAANUlEQVR4AeXJyQEAERAAsNl7Hf3X6xt0QL6JpZWq30pdvdadme+0PMdzvHm8YThHcT1H7K0BtOMDniZhWOgAAAAASUVORK5CYII=);
+//   }
+
+//   &[multiple] {
+//     background: none;
+//   }
+// }

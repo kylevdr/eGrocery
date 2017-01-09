@@ -60,7 +60,7 @@ export default class ProductDetails extends React.Component {
 				<div className="row">
 					<Sidebar />
 					<div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 products-main">
-						<h1 className="page-header">{this.state.productInfo.name}</h1>
+						<h1 className="page-header" style={{marginTop: 10}}>{this.state.productInfo.name}</h1>
 						<div className="row">
 							<div className="col-sm-6">
 								<img className="img-responsive" src={this.state.productInfo.primary_img} alt={this.state.productInfo.name} />
