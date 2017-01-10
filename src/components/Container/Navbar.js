@@ -32,21 +32,6 @@ export default class NavBar extends React.Component {
 		if (this.props.isLoggedIn) {
 			return (
 				<ul className="nav navbar-nav navbar-right">
-					{/*
-					<li className="dropdown">
-						<IndexLink activeClassName="navlink-active" className="dropdown-toggle" data-toggle="dropdown" to="/">
-							Shop <span className="caret"></span>
-						</IndexLink>
-						<ul className="dropdown-menu">
-							<li><Link activeClassName="active" to="/">All Products</Link></li>
-							<li><Link activeClassName="active" to="/">Produce</Link></li>
-							<li><Link activeClassName="active" to="/">Meat</Link></li>
-							<li><Link activeClassName="active" to="/">Dairy</Link></li>
-							<li><Link activeClassName="active" to="/">Bakery</Link></li>
-							<li><Link activeClassName="active" to="/">Packaged</Link></li>
-						</ul>
-					</li>
-					*/}
 					<li><IndexLink activeClassName="navlink-active" to="/">Shop</IndexLink></li>
 					<li><IndexLink activeClassName="navlink-active" to="/cart">Cart</IndexLink></li>
 					<li><a href="#" onClick={this.handleLogout.bind(this)}>Log Out</a></li>
@@ -56,21 +41,6 @@ export default class NavBar extends React.Component {
 		} else {
 			return (
 				<ul className="nav navbar-nav navbar-right">
-					{/*
-					<li className="dropdown">
-						<IndexLink activeClassName="navlink-active" className="dropdown-toggle" data-toggle="dropdown" to="/">
-							Shop <span className="caret"></span>
-						</IndexLink>
-						<ul className="dropdown-menu">
-							<li><Link activeClassName="active" to="/">All Products</Link></li>
-							<li><Link activeClassName="active" to="/">Produce</Link></li>
-							<li><Link activeClassName="active" to="/">Meat</Link></li>
-							<li><Link activeClassName="active" to="/">Dairy</Link></li>
-							<li><Link activeClassName="active" to="/">Bakery</Link></li>
-							<li><Link activeClassName="active" to="/">Packaged</Link></li>
-						</ul>
-					</li>
-					*/}
 					<li><IndexLink activeClassName="navlink-active" to="/">Shop</IndexLink></li>
 					<li><IndexLink activeClassName="navlink-active" to="/login">Log In</IndexLink></li>
 					<li><IndexLink activeClassName="navlink-active" to="/signup">Sign Up</IndexLink></li>
