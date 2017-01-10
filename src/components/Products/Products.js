@@ -14,16 +14,16 @@ export default class Products extends React.Component {
 	}
 
 	componentDidMount() {
-		this.getProducts();
+		this.getProducts(this.props);
 	}
 
-	componentDidUpdate() {
-		this.getProducts();
+	componentWillReceiveProps(nextProps) {
+		this.getProducts(nextProps);
 	}
 
-	getProducts() {
-		if (this.props.location.query.category) {
-			axios.get('./api/products/category?category=' + this.props.location.query.category).then((response) => {
+	getProducts(passedProps) {
+		if (passedProps.location.query.category) {
+			axios.get('./api/products/category?category=' + passedProps.location.query.category).then((response) => {
 				this.setState({
 					products: response.data.sort((a, b) => {
 						if (a.name < b.name) {
@@ -36,8 +36,8 @@ export default class Products extends React.Component {
 					})
 				});
 			});
-		} else if (this.props.location.query.search) {
-			axios.get('./api/products/search?q=' + this.props.location.query.search).then((response) => {
+		} else if (passedProps.location.query.search) {
+			axios.get('./api/products/search?q=' + passedProps.location.query.search).then((response) => {
 				this.setState({
 					products: response.data.sort((a, b) => {
 						if (a.name < b.name) {
