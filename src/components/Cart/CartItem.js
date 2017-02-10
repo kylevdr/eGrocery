@@ -27,7 +27,8 @@ export default class CartItem extends React.Component {
 						</div>
 						<div className="col-xs-12 col-sm-8 col-md-9">
 							<h4><Link to={'/products/' + this.props.id}>{this.props.name}</Link></h4>
-							<p><strong>Quantity: </strong>{this.props.quantity}</p>
+							<p><strong>Quantity: </strong>{this.props.quantity}<button style={{display: "inline-block", marginLeft: 5}} className="btn btn-primary btn-xs">Edit Quantity</button></p>
+							{/* TODO On click item enters edit mode, quantity becomes select dropdown, button text changes to "Save" */}
 							<p><strong>Price: </strong>${(this.props.price * this.props.quantity).toFixed(2)} (${this.props.price} each)</p>
 							<button className="btn btn-danger" onClick={this.handleRemove.bind(this)}>Remove From Cart</button>
 						</div>
