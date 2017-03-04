@@ -1,5 +1,5 @@
 # eGrocery
-E-commerce website for fictional online grocery store. Full-stack SPA built with React, Node, Express, and Postgres.
+E-commerce website for fictional online grocery store. Users can create accounts, log in, log out, and add items to their cart.
 
 ### Live site
 - Url: http://egrocery-project.herokuapp.com/
